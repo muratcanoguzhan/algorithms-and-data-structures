@@ -229,5 +229,42 @@ namespace maineconsole
                 queue.Enqueue(node);
             }
         }
+
+        public static void DijkstraSearch()
+        {
+            var graph = new Dictionary<string, Dictionary<string, int>>();
+
+            var node = new Dictionary<string, int>();
+            node.Add("A", 6);
+            node.Add("B", 2);
+
+            graph.Add("START", node);
+
+            var node2 = new Dictionary<string, int>();
+            node2.Add("FIN", 1);
+
+            graph.Add("A", node2);
+
+            var node3 = new Dictionary<string, int>();
+            node3.Add("A", 3);
+            node3.Add("FIN", 5);
+
+            graph.Add("B", node3);
+
+            graph.Add("FIN", null);
+
+            var costs = new Dictionary<string, int>();
+            costs.Add("A", 6);
+            costs.Add("B", 2);
+            costs.Add("FIN", int.MaxValue);
+
+            var parents = new Dictionary<string, string>();
+            parents.Add("A", "START");
+            parents.Add("B", "START");
+            parents.Add("FIN", null);
+
+            var processed = new List<string>();
+            
+        }
     }
 }
