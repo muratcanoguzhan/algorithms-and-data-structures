@@ -20,7 +20,8 @@ namespace maineconsole
             // {
             //     Console.WriteLine(r);
             // }
-            BreadthFirstSearch("you");
+            // BreadthFirstSearch("you");
+            DijkstraSearch();
             Console.ReadLine();
         }
         static void Main2(string[] args)
@@ -263,8 +264,49 @@ namespace maineconsole
             parents.Add("B", "START");
             parents.Add("FIN", null);
 
-            var processed = new List<string>();
-            
+            var processed = new List<string>(costs.Count);
+
+            var lowestNode = FindTheLowestCodeNode(costs, processed);
+
+            while (lowestNode != null)
+            {
+                var cost = costs[lowestNode];
+                var neighbours = graph[lowestNode];
+                
+                if (neighbours != null)
+                {
+                    foreach (var n in neighbours.Keys)
+                    {
+                        var newCost = cost + neighbours[n];
+
+                        if (costs[n] > newCost)
+                        {
+                            costs[n] = newCost;
+                            parents[n] = lowestNode;
+                        }
+                    }
+                }
+                processed.Add(lowestNode);
+                lowestNode = FindTheLowestCodeNode(costs, processed);
+            }
+        }
+
+        private static string FindTheLowestCodeNode(Dictionary<string, int> costs, List<string> processed)
+        {
+            var lowestCost = int.MaxValue;
+            string lowestCostNode = null;
+            foreach (var node in costs)
+            {
+                var cost = node.Value;
+                if (cost < lowestCost && !processed.Contains(node.Key))
+                {
+                    lowestCost = cost;
+                    lowestCostNode = node.Key;
+                }
+            }
+
+            return lowestCostNode;
         }
     }
 }
+
