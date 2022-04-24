@@ -21,7 +21,6 @@ namespace maineconsole
             //     Console.WriteLine(r);
             // }
             // BreadthFirstSearch("you");
-            
             DijkstraSearch();
             Console.ReadLine();
         }
